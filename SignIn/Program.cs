@@ -22,11 +22,15 @@ namespace SignIn
             var result = authorization.Login(login, password);
             if (result)
             {
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("Вход разрешён");
+                Console.ResetColor();
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Вход запрещён!");
+                Console.ResetColor();
             }
         }
     }
