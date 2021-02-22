@@ -6,6 +6,19 @@ namespace SignIn
 {
     internal static class Program
     {
+        static void ShowSuccess(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine();
+            Console.ResetColor();
+        }
+
+        static void ShowError(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
         private static void Main()
         {
             var log = new Log();
@@ -25,23 +38,13 @@ namespace SignIn
             log.Info("Введён пароль");
 
             var authorization = new Auth();
-            var result = authorization.Login(login, password);
-            if (result)
-            {
-                log.Success("Вход разрешён");
-                
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("Вход разрешён");
-                Console.ResetColor();
-            }
-            else
-            {
-                log.Error("Вход запрещён");
-                
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Вход запрещён!");
-                Console.ResetColor();
-            }
+            authorization.Success += log.Success;
+            authorization.Error += log.Error;
+            
+            authorization.Success += ShowSuccess;
+            authorization.Error += ShowError;
+            
+            authorization.Login(login, password);
         }
     }
 }
