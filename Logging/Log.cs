@@ -6,20 +6,23 @@ namespace Logging
 {
     public class Log
     {
-        private readonly string path;
+        private readonly string _path;
 
         public Log()
         {
-            path = "SignIn.log";
+            _path = "SignIn.log";
+        }
+
+        public Log(string path)
+        {
+            _path = path;
         }
         private void WriteToFile(string mes)
         {
             try
             {
-                using (StreamWriter file = new StreamWriter(path, true))
-                {
-                    file.WriteLine(mes);
-                }
+                using var file = new StreamWriter(_path, true);
+                file.WriteLine(mes);
             }
             catch (UnauthorizedAccessException)
             {
@@ -48,6 +51,15 @@ namespace Logging
             var msg = DateTime.Now.ToString("G") + " [INFO] : " + message;
             WriteToFile(msg);
         }
-       
+        public void Error(string message)
+        {
+            var msg = DateTime.Now.ToString("G") + " [ERROR] : " + message;
+            WriteToFile(msg);
+        }
+        public void Success(string message)
+        {
+            var msg = DateTime.Now.ToString("G") + " [SUCCESS] : " + message;
+            WriteToFile(msg);
+        }
     }
 }
