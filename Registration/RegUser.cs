@@ -1,18 +1,18 @@
-﻿using System;
-using Logging;
-namespace Registration
+﻿namespace Registration
 {
+    public delegate void Message(string message);
     public class RegUser
     {
-        Log log = new Log();
+        public event Message Error;
+        public event Message Success;
         public bool PasswordVerification (string password, string passwordCheck)
         {
             if (password == passwordCheck)
             {
-                log.Success("Пароли совпадают");
+                Success?.Invoke("Пароли совпадают");
                 return true;
             }
-            log.Error("Пароли не совпадают");
+            Error?.Invoke("Пароли не совпадают");
             return false;
         }
     }
