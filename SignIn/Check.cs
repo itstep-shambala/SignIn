@@ -14,9 +14,13 @@ namespace SignIn
         public bool Alphabet(string password)
         {
             bool flag = true;
+            char[] chars = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '/', '.', ',', '>', '<' };
+            int sp = password.IndexOfAny(chars) + 1;
+            char[] chars1 = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            int num = password.IndexOfAny(chars1) + 1;
             for (int i = 0; i < password.Length; i++)
             {
-                if (!(password[i] >= 'a' && password[i] <= 'z' || password[i] >= 'A' && password[i] <= 'Z' || password[i] >= '0' && password[i] <= '9' || password[i] >= '!' && password[i] <= '/' || password[i] >= ':' && password[i] <= '@' || password[i] >= '[' && password[i] <= '`' || password[i] >= '{' && password[i] <= '~'))
+                if (!(password[i] >= 'a' && password[i] <= 'z' || password[i] >= 'A' && password[i] <= 'Z' && num > 0 && sp > 0))
                 {
                     flag = false;
                     break;
