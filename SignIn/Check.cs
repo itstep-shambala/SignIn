@@ -4,17 +4,12 @@ using System.Text;
 
 namespace SignIn
 {
-    class Check
+    class CheckPassword
     {
         public bool Password(string password, int min)
         {
-            int x;
-            x = password.Length;
-            if (x >= min)
-            {
-                return true;
-            }
-            return false;
+            int length = password.Length;
+            return  length>= min;
         }
         public bool Alphabet(string password)
         {
