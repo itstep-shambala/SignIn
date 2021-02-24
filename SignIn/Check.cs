@@ -54,22 +54,12 @@ namespace SignIn
         public bool CheckSpec(string password)
         {
             char[] chars = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '/', '.', ',', '>', '<' };
-            int sp = 0;
-            for (int i = 0; i < password.Length; i++)
-            {
-                if (password.IndexOfAny(chars) != 0)
-                {
-                    sp += 1;
-                }
-            }
+            int sp = password.IndexOfAny(chars) + 1;
             return sp >= 1;
         }
         public bool CheckSymb(string password)
         {
-            bool a = CheckAlp(password);
-            bool b = CheckNum(password);
-            bool c = CheckSpec(password);
-            if (a == true && b == true && c == true)
+            if (CheckAlp(password) && CheckNum(password) && CheckSpec(password))
             {
                 return true;
             }
