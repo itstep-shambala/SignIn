@@ -23,39 +23,58 @@ namespace SignIn
                 }
             }
 
-            if (flag == true)
-            {
-                return true;
-            }
-            return false;
+            return flag;
         }
-        public bool CheckSymb(string password)
+
+
+        public bool CheckAlp(string password)
         {
             int alp = 0;
-            int num = 0;
-            int specSymp = 0;
             for (int i = 0; i < password.Length; i++)
             {
                 if (password[i] >= 'A' && password[i] <= 'Z')
                 {
                     alp += 1;
                 }
+            }
+            return alp >= 1;
+        }
+        public bool CheckNum(string password)
+        {
+            int num = 0;
+            for (int i = 0; i < password.Length; i++)
+            {
                 if (password[i] >= '0' && password[i] <= '9')
                 {
                     num += 1;
                 }
-                if (password[i] >= '!' && password[i] <= '/' || password[i] >= ':' && password[i] <= '@' || password[i] >= '[' && password[i] <= '`' || password[i] >= '{' && password[i] <= '~')
-                {
-                    specSymp += 1;
-                }
-
             }
-
-            if (specSymp >= 1 && num >= 1 && alp >= 1)
+            return num >= 1;
+        }
+        public bool CheckSpec(string password)
+        {
+            char[] chars = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '/', '.', ',', '>', '<' };
+            int sp = 0;
+            for (int i = 0; i < password.Length; i++)
+            {
+                if (password.IndexOfAny(chars) != 0)
+                {
+                    sp += 1;
+                }
+            }
+            return sp >= 1;
+        }
+        public bool CheckSymb(string password)
+        {
+            bool a = CheckAlp(password);
+            bool b = CheckNum(password);
+            bool c = CheckSpec(password);
+            if (a == true && b == true && c == true)
             {
                 return true;
             }
             return false;
+
         }
 
     }
